@@ -1,29 +1,29 @@
-import mongoose from "mongoose";
+import { Schema, model } from "mongoose";
+import UserModel from "../model.js";
 
-const MovieSchema = new mongoose.Schema(
-  {
-    judul: {
-      type: String,
-      unique: true,
-      required: true,
-      trim: true,
+const MovieSchema = new Schema({
+    title: {
+        type: String,
+        required: true,
     },
-    tahunRilis: {
-      type: String,
-      required: true,
-      trim: true,
+    year: {
+        type: Number,
+        required: true,
     },
-    sutradara: {
-      type: String,
-      required: true,
-      trim: true,
+    genre: {
+        type: String,
     },
-  },
-  {
+    
+    // START: Bagian yang diupdate/ditambahkan
+    createdBy: {
+        type: mongoose.Types.ObjectId, // Tipe data untuk ID MongoDB
+        ref: UserModel, // Merujuk ke model User
+    },
+    // END: Bagian yang diupdate/ditambahkan
+}, {
     timestamps: true,
-  }
-);
+});
 
-const MovieModel = mongoose.model("Movies", MovieSchema);
+const movieModel = mongoose.model("movies",MovieSchema);
 
-export default MovieModel;
+export default movieModel;
